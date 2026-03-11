@@ -17,6 +17,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    @Transactional
     public UserResponse save(CreateUserRequest request) {
         User user = new User(request.name(), request.age(), request.mbti());
 

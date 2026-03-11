@@ -29,7 +29,9 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.3'
 
+    implementation platform('io.awspring.cloud:spring-cloud-aws-dependencies:4.0.0-RC1')
     implementation 'io.awspring.cloud:spring-cloud-aws-starter-parameter-store'
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
