@@ -1,0 +1,37 @@
+spring:
+  config:
+    import: "aws-parameterstore:/cloud-project-app/prod/"
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+      stack:
+        auto: false
+  datasource:
+     driver-class-name: com.mysql.cj.jdbc.Driver
+     url: ${URL}
+     username: ${DB_USERNAME}
+     password: ${DB_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: validate
+
+management:
+  endpoint:
+    health:
+      show-details: never
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    message: ${APP_MESSAGE}
+    team-name: ${TEAM-NAME}
+
+logging:
+  level:
+    root: INFO
