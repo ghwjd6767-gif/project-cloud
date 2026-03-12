@@ -92,7 +92,7 @@ jobs:
               -p 8080:8080 \
               ${{ secrets.DOCKERHUB_USERNAME }}/my-project-app:latest
 
-            echo "✅ 배포 완료!"
+            echo "✅ 배포 완료!!"
 
 
 
