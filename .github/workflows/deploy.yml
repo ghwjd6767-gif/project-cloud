@@ -45,7 +45,7 @@ jobs:
       - name: Build JAR
         run: ./gradlew bootJar
 
-      # ── 여기서부터 CD ─────────────────────────────
+
 
       # Step 6: Docker Hub 로그인        ← ECR 로그인에서 변경
       - name: Login to Docker Hub
@@ -60,7 +60,7 @@ jobs:
           SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
           IMAGE_URI=${{ secrets.DOCKERHUB_USERNAME }}/my-project-app
 
-          docker build -t $IMAGE_URI:$SHORT_SHA .
+          docker build --platform linux/arm64 -t $IMAGE_URI:$SHORT_SHA .
           docker push $IMAGE_URI:$SHORT_SHA
 
           # latest 태그도 같이 push
@@ -69,6 +69,8 @@ jobs:
 
           echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
           echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_ENV
+
+      # ── 여기서부터 CD ─────────────────────────────
 
       # Step 8: EC2에 SSH 접속해서 배포   ← ECR 로그인 부분만 제거
       - name: Deploy to EC2
