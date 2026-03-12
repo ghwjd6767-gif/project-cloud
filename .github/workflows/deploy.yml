@@ -91,6 +91,7 @@ jobs:
             docker run -d \
               --name app \
               --restart always \
+              -e SPRING_PROFILES_ACTIVE=prod \
               -p 8080:8080 \
               ${{ secrets.DOCKERHUB_USERNAME }}/my-project-app:latest
 
