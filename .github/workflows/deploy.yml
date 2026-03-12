@@ -46,6 +46,63 @@ jobs:
       # Step 5: JAR 빌드
       - name: Build JAR
         run: ./gradlew bootJar
+      # ── 여기서부터 CD ─────────────────────────────
+
+      # Step 6: AWS 자격증명 (OIDC)
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # Step 7: ECR 로그인
+      - name: Login to ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # Step 8: Docker 이미지 빌드 & ECR Push
+      - name: Build and push Docker image
+        run: |
+          SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
+          IMAGE_URI=${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPOSITORY }}
+
+          docker build -t $IMAGE_URI:$SHORT_SHA .
+          docker push $IMAGE_URI:$SHORT_SHA
+
+          # latest 태그도 같이 push
+          docker tag $IMAGE_URI:$SHORT_SHA $IMAGE_URI:latest
+          docker push $IMAGE_URI:latest
+
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+          echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_ENV
+
+      # Step 9: EC2에 SSH 접속해서 배포
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # ECR 로그인
+            aws ecr get-login-password --region ${{ vars.AWS_REGION }} | \
+              docker login --username AWS --password-stdin \
+              ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
+
+            # 새 이미지 Pull
+            docker pull ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPOSITORY }}:latest
+
+            # 기존 컨테이너 중지 & 삭제
+            docker stop app || true
+            docker rm app || true
+
+            # 새 컨테이너 실행
+            docker run -d \
+              --name app \
+              --restart always \
+              -p 8080:8080 \
+              ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPOSITORY }}:latest
+
+            echo "✅ 배포 완료!"
 
 
 
