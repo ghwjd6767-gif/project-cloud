@@ -36,3 +36,7 @@ https://api.dontclickit.click
 - Target Group(대상 그룹) 이미지
 
 ![스크린샷 2026-03-13 114203.png](%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-03-13%20114203.png)
+
+### LV 6 - 글로벌 성능 최적화 (CloudFront CDN)
+
+https://d3h055os7xi1bk.cloudfront.net/uploads/6991070d-8415-4909-9651-6d49859b5103_%EC%98%AC%EB%9D%BC%EC%9E%87%2024.png
