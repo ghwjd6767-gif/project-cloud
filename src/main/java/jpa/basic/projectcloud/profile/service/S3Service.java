@@ -19,8 +19,11 @@ public class S3Service {
 
     private final S3Template s3Template;
 
-    @Value("${spring.cloud.aws.s3.bucket}")
+    @Value("${project-cloud-s3bucket-poten}")
     private String bucket;
+
+    @Value("{$CLOUDFRONT_DOMAIN}")
+    private String cloudFrontDomain;
 
     public String upload(MultipartFile file) {
         try {
@@ -33,7 +36,7 @@ public class S3Service {
         }
     }
 
-    public URL getDownloadUrl(String key) {
-        return s3Template.createSignedGetURL(bucket, key, PRESIGNED_URL_EXPIRATION);
+    public String getDownloadUrl(String key) {
+        return "https://" + cloudFrontDomain + "/" + key;
     }
 }

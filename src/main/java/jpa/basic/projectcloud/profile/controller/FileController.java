@@ -25,7 +25,8 @@ public class FileController {
 
     @GetMapping("/{userId}/profile-image")
     public ResponseEntity<FileDownloadUrlResponse> getDownloadUrl(@RequestParam String key) {
-        URL url = s3Service.getDownloadUrl(key);
-        return ResponseEntity.ok(new FileDownloadUrlResponse(url.toString()));
+        String url = s3Service.getDownloadUrl(key);
+
+        return ResponseEntity.ok(new FileDownloadUrlResponse(url));
     }
 }
