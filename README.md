@@ -1,0 +1,38 @@
+# 클라우드_아키텍처 설계 & 배포 
+
+### LV 0 - 요금 폭탄 방지 AWS Budget 설정
+
+![스크린샷 2026-03-10 163250.png](%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-03-10%20163250.png)
+
+### LV 1 - 네트워크 구축 및 핵심 기능 배포 
+
+ec2 IPv4
+
+`43.203.233.24`
+
+### LV 2 - DB 분리 및 보안 연결하기 
+
+http://43.203.233.24:8080/actuator/info
+
+### LV 3 - 프로필 사진 기능 추가와 권한 관리
+https://project-cloud-s3bucket-poten.s3.ap-northeast-2.amazonaws.com/uploads/6991070d-8415-4909-9651-6d49859b5103_%EC%98%AC%EB%9D%BC%EC%9E%87%2024.png?X-Amz-Security-Token=IQoJb3JpZ2luX2VjELv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLW5vcnRoZWFzdC0yIkgwRgIhAJ5TIS9lJbDLjh7JQSZPyeg0Hyh0QrtoKVt8ctv7CsgfAiEAy2TOIft7EkTAiHscHMgnCZQMjh2BMm5DlnA0p8Ddzd8q0gUIhP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw4MDg3NjU3NDQ0OTUiDIPIdszNqsK61acDhyqmBdiB%2Baw7V%2FrmTHHT9oECQ3dYIt6JbQVZLnTVYbHhm9N%2BIXN8ZCdEIa%2BmfXcqGIy6PpY%2FL6nYbZ4b3vzqDbgaNxE2gA3NHj%2BFcQVbJ9%2Fk6CsxQlEQZa7%2FsOHHc7lTJqrr5LU1p8JMdGHeYqYQRH9QO4JVbv2T%2F0vcg4nt7wZF0eHoqwQ1ESJSiiMplWeYjIiWeDjQNeA7oAtlhotIz3UV2pxbxopPpKbqAI7EFXu8L%2FOqhi%2FbU1LrekmPW43OfSezdbPghv50jDabNJqmxiQ3jCdkvWUUEe9NhHVGy6djyq7MO6LUohs2bo91%2BvuEcF22UtNXM626plezkmO%2FhD1xMG%2F87Fhdl9BbgAoILLaJJ9Tq4Vk%2FEg5QBGZrYGQdVVEaYYpz4HNnwnJ%2FGf9hSSOrxCmZe8peNGCKPFbYInqL03%2BtMMOyN7uhl1VfhYadv4nP%2Bln%2B7oCwFuF%2BsaBCLOHn7VDhu7JrJjd6coo89Robbcmg%2F%2FtF%2FuxPPWyincBo3fWyR5lsGrfFT4BlOYQF7nj3474xt5xy9rth3moprcyZOTeTMgC0boGQa4TEEs3MS%2Fp3eL91pCs2U1hebE0dgzHdpFepGeZB9eLNq9H2EOA6ZT4Vz2JzvGuJTJ5mn8Adx8XYrUNqu30YOT%2FyZ%2BTXP3IXekAkNceX0piFDre0fcNNR9BWG44Lpt2INBcgPJ5ass3toqGcbmkjAtvB5DIUoOlaC68iMw427FLgtBcq28htH0l1cMbtAPjGqCSQyW4eyldyaSVmC4iWhI8gPTmllzEyIkaHOkgCclxMPovhgQzJCvAY20hA1k52oNd3HH5cwwyEqb%2F6Y8KKSfaX9VWz%2FOljwsO937Rp5%2FcI0XPVUB6J6EQdzRHBo0FyKQonYzpd%2Bc6iXmMlEp8z5zC29c3NBjqwAY3VaOsmlXKspZObPgwlJD2Axg83S7igjj7ZH8pF4NJQtuoNyZEn9GZunaSiNLASmjt7c2SsgRG4J9ZBMqrH4lsNQ9la39uctzGXf0gam7LADos%2Fxb8w%2BvJmeIoel2uogCGvw8Cm6FtFr1N5KnqsK7FOYAbR81Gii8a6wYIEBLFxSvsQ%2FsSsULBvwxrk0xOnwf3KbXJHrLfxX6r0mQEPxtuuOJ4li%2B%2B1Rcr%2BlakPL34h&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260313T031155Z&X-Amz-SignedHeaders=host&X-Amz-Credential=ASIA3YTRR4VX2O4EZIW7%2F20260313%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Expires=604800&X-Amz-Signature=5c22215488387cc5c157eb5eb783499acfdf9a5e19367263002a4d578d96dbb0
+
+![스크린샷 2026-03-11 202743.png](%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-03-11%20202743.png)
+
+### LV 4 - Docker & CI/CD 파이프라인 구축
+
+1. Github Actions 성공 이미지
+![스크린샷 2026-03-12 210253.png](%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-03-12%20210253.png)
+
+2. EC2 터미널 이미지
+![스크린샷 2026-03-13 120007.png](%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-03-13%20120007.png)
+
+### LV 5 - 고가용성 아키텍처와 보안 도메인 연결
+
+- HTTPS 적용된 도메인 URL
+
+https://api.dontclickit.click
+
+- Target Group(대상 그룹) 이미지
+
+![스크린샷 2026-03-13 114203.png](%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-03-13%20114203.png)
